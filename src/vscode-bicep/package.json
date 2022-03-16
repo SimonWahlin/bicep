@@ -124,7 +124,7 @@
     "vscode-azureextensionui": "^0.38.3",
     "vscode-languageclient": "^7.0.0",
     "winston": "^3.3.3",
-    "winston-transport": "^4.4.0"
+    "winston-transport": "^4.5.0"
   },
   "extensionDependencies": [
     "ms-dotnettools.vscode-dotnet-runtime"
