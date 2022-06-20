@@ -1,18 +1,57 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>Azure.Bicep.Core</AssemblyName>
+    <RootNamespace>Bicep.Core</RootNamespace>
+    <EnableNuget>true</EnableNuget>
+    <PackageTags>Azure;ResourceManager;ARM;Deployments;Templates;Bicep</PackageTags>
+    <Description>Bicep compiler core functionality</Description>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" Version="2020.3.0">
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="System.Collections.Immutable" Version="5.0.0" />
-    <PackageReference Include="Azure.Deployments.Expression" Version="1.0.112" />
-    <PackageReference Include="Azure.Bicep.Types" Version="0.1.21" />
-    <PackageReference Include="Azure.Bicep.Types.Az" Version="0.1.21" />
+    <None Remove="bicepconfig.json" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Include="Configuration\bicepconfig.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Azure.Containers.ContainerRegistry" Version="1.1.0-beta.4" />
+    <PackageReference Include="Azure.Identity" Version="1.6.0" />
+    <PackageReference Include="Azure.ResourceManager.Resources" Version="1.1.0" />
+    <PackageReference Include="JetBrains.Annotations" Version="2022.1.0">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="JsonPatch.Net" Version="1.1.2" />
+    <PackageReference Include="JsonPath.Net" Version="0.2.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="System.Collections.Immutable" Version="6.0.0" />
+    <PackageReference Include="Azure.Deployments.Core" Version="1.0.594" />
+    <PackageReference Include="Azure.Deployments.Templates" Version="1.0.594" />
+    <PackageReference Include="Azure.Deployments.Expression" Version="1.0.594" />
+    <PackageReference Include="Azure.Bicep.Types" Version="0.1.538" />
+    <PackageReference Include="Azure.Bicep.Types.Az" Version="0.1.538" />
+    <PackageReference Include="Azure.Bicep.Types.K8s" Version="0.1.11" />
+    <PackageReference Include="System.IO.Abstractions" Version="17.0.18" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="CoreResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CoreResources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="CoreResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>CoreResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="Nerdbank.GitVersioning" Version="3.5.107" />
+  </ItemGroup>
+  <ProjectExtensions><VisualStudio><UserProperties configuration_4bicepconfig_1json__JsonSchema="https://appsemble.app/api.json" /></VisualStudio></ProjectExtensions>
 </Project>
