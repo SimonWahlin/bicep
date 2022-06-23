@@ -21,6 +21,11 @@ namespace Bicep.Core.Semantics
             VisitDescendants(symbol);
         }
 
+        public virtual void VisitMetadataSymbol(MetadataSymbol symbol)
+        {
+            VisitDescendants(symbol);
+        }
+
         public virtual void VisitParameterSymbol(ParameterSymbol symbol)
         {
             VisitDescendants(symbol);

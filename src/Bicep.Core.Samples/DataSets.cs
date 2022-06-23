@@ -43,6 +43,8 @@ namespace Bicep.Core.Samples
 
         public static DataSet Outputs_CRLF => CreateDataSet();
 
+        public static DataSet Metadata_CRLF => CreateDataSet();
+
         public static DataSet NestedResources_LF => CreateDataSet();
 
         public static DataSet Parameters_CRLF => CreateDataSet();

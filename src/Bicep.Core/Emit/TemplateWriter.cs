@@ -907,6 +907,12 @@ namespace Bicep.Core.Emit
                     emitter.EmitProperty("version", this.context.Settings.AssemblyFileVersion);
                 }
                 jsonWriter.WriteEndObject();
+
+                foreach (var metadataSymbol in this.context.SemanticModel.Root.MetadataDeclarations)
+                {
+                    jsonWriter.WritePropertyName(metadataSymbol.Name);
+                    emitter.EmitExpression(metadataSymbol.Value);
+                }
             }
             jsonWriter.WriteEndObject();
         }
