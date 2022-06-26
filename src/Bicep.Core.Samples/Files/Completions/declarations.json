@@ -1,19 +1,5 @@
 [
   {
-    "label": "meta",
-    "kind": "keyword",
-    "detail": "Metadata keyword",
-    "deprecated": false,
-    "preselect": false,
-    "sortText": "2_meta",
-    "insertTextFormat": "plainText",
-    "insertTextMode": "adjustIndentation",
-    "textEdit": {
-      "range": {},
-      "newText": "meta"
-    }
-  },
-  {
     "label": "module",
     "kind": "keyword",
     "detail": "Module keyword",
@@ -3441,6 +3427,20 @@
     "textEdit": {
       "range": {},
       "newText": "targetScope"
+    }
+  },
+  {
+    "label": "meta",
+    "kind": "keyword",
+    "detail": "Metadata keyword",
+    "deprecated": false,
+    "preselect": false,
+    "sortText": "2_meta",
+    "insertTextFormat": "plainText",
+    "insertTextMode": "adjustIndentation",
+    "textEdit": {
+      "range": {},
+      "newText": "meta"
     }
   },
   {

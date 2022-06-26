@@ -17,7 +17,8 @@ meta foo = {
   info: {
     a: 'b'
   }
-  empty: {}
+  empty: {
+  }
   array: [
     'string item'
     12
