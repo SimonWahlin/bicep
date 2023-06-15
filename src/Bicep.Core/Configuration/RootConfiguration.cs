@@ -37,7 +37,7 @@ namespace Bicep.Core.Configuration
             this.Cloud = cloud;
             this.ModuleAliases = moduleAliases;
             this.Analyzers = analyzers;
-            this.CacheRootDirectory = cacheRootDirectory;
+            this.CacheRootDirectory = ResolvePath(cacheRootDirectory);
             this.ExperimentalFeaturesEnabled = experimentalFeaturesEnabled;
             this.Formatting = formatting;
             this.ConfigurationPath = configurationPath;
@@ -105,6 +105,22 @@ namespace Bicep.Core.Configuration
             }
 
             return Encoding.UTF8.GetString(bufferWriter.WrittenSpan);
+        }
+
+        private static string? ResolvePath(string? path) 
+        {
+            if(path is not null && path.StartsWith("~"))
+            {
+                // remove leading tilde
+                path = path[1..];
+                if(path.StartsWith(System.IO.Path.DirectorySeparatorChar))
+                {
+                    // remove leading slash
+                    path = path[1..];
+                }
+                path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),path);
+            }
+            return path;
         }
     }
 }
