@@ -111,17 +111,49 @@ namespace Bicep.Core.Semantics
                 {
                     var description = DescriptionHelper.TryGetFromDecorator(this, param.DeclaringParameter);
                     var isRequired = SyntaxHelper.TryGetDefaultValue(param.DeclaringParameter) == null && !TypeHelper.IsNullable(param.Type);
+
+                    // TODO: EXAMPLE!
+                    // var decorator = SemanticModelHelper.TryGetDecoratorInNamespace(binder,
+                    // typeManager.GetDeclaredType,
+                    // decorable,
+                    // SystemNamespaceType.BuiltInName,
+                    // LanguageConstants.MetadataDescriptionPropertyName);
+
+                    // if (decorator is not null &&
+                    //     decorator.Arguments.FirstOrDefault()?.Expression is StringSyntax stringSyntax
+                    //     && stringSyntax.TryGetLiteralValue() is string description)
+                    // {
+                    //     return description;
+                    // }
+                    
+                    var isDeprecated = false;
+
+                    var deprecatedDecorator = SemanticModelHelper.TryGetDecoratorInNamespace(
+                        this.Binder, 
+                        this.TypeManager.GetDeclaredType, 
+                        param.DeclaringParameter, 
+                        SystemNamespaceType.BuiltInName, 
+                        LanguageConstants.ParameterDeprecatedPropertyName);
+                    if ( deprecatedDecorator is not null &&
+                        deprecatedDecorator.Arguments.FirstOrDefault()?.Expression is StringSyntax stringSyntax &&
+                        stringSyntax.TryGetLiteralValue() is string deprecationMessage)
+                    {
+                        isDeprecated = true;
+                    }
+
                     if (param.Type is ResourceType resourceType)
                     {
                         // Resource type parameters are a special case, we need to convert to a dedicated
                         // type so we can compare differently for assignment.
                         var type = new UnresolvedResourceType(resourceType.TypeReference);
-                        parameters.Add(param.Name, new ParameterMetadata(param.Name, type, isRequired, description));
+                        parameters.Add(param.Name, new ParameterMetadata(param.Name, type, isRequired, description, isDeprecated, (isDeprecated ? deprecationMessage : null)));
                     }
                     else
                     {
-                        parameters.Add(param.Name, new ParameterMetadata(param.Name, param.Type, isRequired, description));
+                        
+                        parameters.Add(param.Name, new ParameterMetadata(param.Name, param.Type, isRequired, description, isDeprecated, (isDeprecated ? deprecationMessage : null)));
                     }
+
                 }
 
                 return parameters.ToImmutable();

@@ -84,7 +84,9 @@ namespace Bicep.Core.Semantics
                                 parameterProperty.Key,
                                 type,
                                 parameterProperty.Value.DefaultValue is null && !TypeHelper.IsNullable(type.Type),
-                                GetMostSpecificDescription(parameterProperty.Value));
+                                GetMostSpecificDescription(parameterProperty.Value),
+                                false,
+                                null);
                         },
                         LanguageConstants.IdentifierComparer);
             });

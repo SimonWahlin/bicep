@@ -146,6 +146,7 @@ namespace Bicep.Core
         public const string ParameterMaxLengthPropertyName = "maxLength";
         public const string ParameterMetadataPropertyName = "metadata";
         public const string ParameterSealedPropertyName = "sealed";
+        public const string ParameterDeprecatedPropertyName = "deprecated";
         public const string MetadataDescriptionPropertyName = "description";
         public const string MetadataResourceTypePropertyName = "resourceType";
         public const string MetadataResourceDerivedTypePropertyName = "__bicep_resource_derived_type!";

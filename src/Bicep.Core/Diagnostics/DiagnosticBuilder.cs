@@ -2189,6 +2189,12 @@ namespace Bicep.Core.Diagnostics
                 TextSpan,
                 "BCP400",
                 $"Fetching types from the registry requires enabling EXPERIMENTAL feature \"{nameof(ExperimentalFeaturesEnabled.ProviderRegistry)}\".");
+
+            public Diagnostic ParameterDeprecated(string message) => new(
+                TextSpan,
+                DiagnosticLevel.Warning,
+                "BCP401",
+                message);
         }
 
         public static DiagnosticBuilderInternal ForPosition(TextSpan span)

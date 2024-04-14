@@ -1698,6 +1698,22 @@ namespace Bicep.Core.Semantics.Namespaces
                     })
                     .Build();
 
+                yield return new DecoratorBuilder(LanguageConstants.ParameterDeprecatedPropertyName)
+                    .WithDescription("Marks a parameter as deprecated with a deprecation message.")
+                    .WithRequiredParameter("text", LanguageConstants.String, "Deprecation message.")
+                    .WithFlags(FunctionFlags.ParameterDecorator)
+                    .WithEvaluator((functionCall, decorated) =>
+                    {
+                        if (decorated is TypeDeclaringExpression typeDeclaringExpression &&
+                            functionCall.Parameters.FirstOrDefault() is { } deprecated)
+                        {
+                            return typeDeclaringExpression with { Deprecated = deprecated };
+                        }
+
+                        return decorated;
+                    })
+                    .Build();
+
                 yield return new DecoratorBuilder(LanguageConstants.TypeDiscriminatorDecoratorName)
                     .WithDescription("Defines the discriminator property to use for a tagged union that is shared between all union members")
                     .WithRequiredParameter("value", LanguageConstants.String, "The discriminator property name.")
