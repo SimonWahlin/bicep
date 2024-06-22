@@ -22,6 +22,9 @@ namespace Bicep.Core.Semantics.Namespaces
             // NamespaceConfig is not null
             if (resourceTypeProvider is ThirdPartyResourceTypeProvider thirdPartyProvider && thirdPartyProvider.GetNamespaceConfiguration() is NamespaceConfiguration namespaceConfig && namespaceConfig != null)
             {
+                // Include the `deprecated` decorator in the list of available decorators for the namespace.
+                var decorators = ImmutableArray<Decorator>.Empty.Add(new Decorator("deprecated", new FunctionOverload("deprecated", ReturnType: TypeSymbolValidationFlags.Default, new Parameter("message", TypeSymbolValidationFlags.Default, "The deprecation message."), new FunctionFlags()), null, null));
+
                 return new NamespaceType(
                     aliasName,
                     new NamespaceSettings(
@@ -33,7 +36,7 @@ namespace Bicep.Core.Semantics.Namespaces
                     ImmutableArray<TypeProperty>.Empty,
                     ImmutableArray<FunctionOverload>.Empty,
                     ImmutableArray<BannedFunction>.Empty,
-                    ImmutableArray<Decorator>.Empty,
+                    decorators,
                     resourceTypeProvider);
             }
 
